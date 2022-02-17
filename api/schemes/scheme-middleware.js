@@ -49,12 +49,12 @@ if(!scheme_name || scheme_name === '' || typeof scheme_name !== "string") {
 */
 const validateStep = (req, res, next) => {
 const { instructions, step_number } = req.body;
-if(!instructions || instructions === undefined || instructions === '' || typeof instructions !== "string" || typeof step_number !== "number" || step_number < 1 || step_number === undefined) {
-  res.status(400).json({ 
-    "message": "invalid step"
-  })
-} else {
+if(instructions && typeof instructions === 'string' && step_number > 0 && typeof step_number === 'number') {
   next();
+} else {
+  res.status(400).json({
+    message: 'invalid step'
+  });
 }
 }
 
